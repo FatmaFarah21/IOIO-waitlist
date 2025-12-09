@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IOIO — Properties Form</title>
+<style>
+  /* ===== Page Reset ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', sans-serif; }
+  body, html { height: 100%; background: #fff; overflow-x: hidden; }
+
+  /* ===== Glass Panel ===== */
+  .glass-panel {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    margin: 120px auto 80px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 { text-align: center; margin-bottom: 20px; color: #222; }
+  label { display: block; margin: 12px 0 6px; color: #333; }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.2);
+    outline: none;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  textarea { resize: none; }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #0a0242;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  button:hover { background: #1a5a96; }
+
+  /* ===== Bouncing Balls ===== */
+  .bouncing-ball {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(1, 24, 78, 0.6);
+    border-radius: 50%;
+    animation: bounce 4s infinite ease-in-out alternate;
+    z-index: 1;
+  }
+  .ball1 { top: 0; left: 0; animation-delay: 0s; }
+  .ball2 { top: 0; right: 0; animation-delay: 1s; }
+  .ball3 { bottom: 0; left: 0; animation-delay: 2s; }
+  .ball4 { bottom: 0; right: 0; animation-delay: 3s; }
+
+  @keyframes bounce {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(30px) translateX(30px); }
+    100% { transform: translateY(0) translateX(0); }
+  }
+
+  /* ===== Conditional Fields ===== */
+  .conditional { display: none; }
+
+  /* ===== Ayo Mascots ===== */
+  .ayo-mascot {
+    position: absolute;
+    width: 80px;
+    z-index: 3;
+    animation: peek 2s ease-in-out infinite alternate;
+  }
+  .ayo-top-left { top: 0; left: 0; animation-delay: 0s; }
+  .ayo-top-right { top: 0; right: 0; animation-delay: 0.5s; }
+  .ayo-bottom-left { bottom: 0; left: 0; animation-delay: 1s; }
+  .ayo-bottom-right { bottom: 0; right: 0; animation-delay: 1.5s; }
+
+  @keyframes peek {
+    0% { transform: translateY(-10px); }
+    50% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Bouncing balls -->
+  <div class="bouncing-ball ball1"></div>
+  <div class="bouncing-ball ball2"></div>
+  <div class="bouncing-ball ball3"></div>
+  <div class="bouncing-ball ball4"></div>
+
+  <!-- Ayo Mascots -->
+  <img src="assets/Ayo mascot.png" alt="Ayo Mascot" class="ayo-mascot ayo-top-left">
+  <img src="assets/Ayo mascot.png" alt="Ayo Mascot" class="ayo-mascot ayo-top-right">
+  <img src="assets/Ayo mascot.png" alt="Ayo Mascot" class="ayo-mascot ayo-bottom-left">
+  <img src="assets/Ayo mascot.png" alt="Ayo Mascot" class="ayo-mascot ayo-bottom-right">
+
+  <!-- Glass Form -->
+  <div class="glass-panel">
+    <h2>Tell us about your property</h2>
+    <form id="propertiesForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" min="18" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="property_type">Property Type</label>
+      <select id="property_type" name="property_type" required>
+        <option value="">Select Property Type</option>
+        <option value="home">Home</option>
+        <option value="apartments">Apartments</option>
+        <option value="commercial">Commercial</option>
+        <option value="sale">For Sale</option>
+      </select>
+
+      <div id="homeFields" class="conditional">
+        <label for="bedrooms">Number of Bedrooms</label>
+        <input type="number" id="bedrooms" name="bedrooms" min="1">
+      </div>
+
+      <div id="bnbFields" class="conditional">
+        <label for="rooms">Number of Rooms</label>
+        <input type="number" id="rooms" name="rooms" min="1">
+      </div>
+
+      <label for="message">Describe your property</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const typeSelect = document.getElementById('property_type');
+    const homeFields = document.getElementById('homeFields');
+    const bnbFields = document.getElementById('bnbFields');
+
+    // Show conditional fields
+    typeSelect.addEventListener('change', () => {
+      homeFields.style.display = typeSelect.value === 'home' ? 'block' : 'none';
+      bnbFields.style.display = typeSelect.value === 'apartments' ? 'block' : 'none';
+    });
+
+    // Form submission via fetch
+    document.getElementById('propertiesForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+
+      const formData = {
+        name: form.name.value,
+        age: parseInt(form.age.value),
+        email: form.email.value,
+        phone: form.phone.value,
+        property_type: form.property_type.value,
+        bedrooms: form.bedrooms?.value || null,
+        rooms: form.rooms?.value || null,
+        message: form.message.value
+      };
+
+      console.log('Submitting to backend:', formData);
+
+      try {
+        // Use relative URL that will work with the deployed backend
+        const response = await fetch('/api/properties', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        console.log('Backend response:', result);
+
+        if (response.ok) {
+          alert('Property submitted successfully!');
+          form.reset();
+        } else {
+          alert('Error submitting: ' + result.message);
+        }
+      } catch (err) {
+        console.error('Fetch error:', err);
+        alert('Failed to submit. Check console.');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "ioio-backend",
+  "version": "1.0.0",
+  "description": "IOIO Property Management Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.87.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ioio-frontend
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: BACKEND_URL
+        value: https://your-backend-url.onrender.com

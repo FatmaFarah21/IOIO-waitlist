@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1765258478523,
+    "timestamp": "2025-12-09T05:34:38.523Z",
+    "name": "Test Property",
+    "email": "test@example.com"
+  },
+  {
+    "id": 1765258614204,
+    "timestamp": "2025-12-09T05:36:54.204Z",
+    "name": "Fatma Farah",
+    "age": 22,
+    "email": "farahfatma53@gmail.com",
+    "phone": "0724443333",
+    "property_type": "apartments",
+    "bedrooms": null,
+    "rooms": "2",
+    "message": "hhglkldciy,khn"
+  }
+]
